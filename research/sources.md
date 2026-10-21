@@ -90,6 +90,20 @@ Accessed 2026-10-21.
 | 60 | OpenAI, [GPT-5 prompting guide](https://developers.openai.com/cookbook/examples/gpt-5/gpt-5_prompting_guide) | Doc |
 | 61 | Google, [Gemini thinking](https://ai.google.dev/gemini-api/docs/thinking) | Doc |
 
+## Effort cost analysis and hallucination (file 08)
+
+| # | Source | Status | Used for |
+|---|---|---|---|
+| 62 | Anthropic, [What's new in Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5) | Doc | Pricing ($4/$20, cache $0.20), always-on thinking |
+| 63 | Anthropic, [Optimizing for cost and intelligence](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence) | Doc (vendor-measured) | Per-effort SWE-bench Pro subset, escalation policies, caching 3.3x, low-vs-medium deltas, max_tokens experiment |
+| 64 | Anthropic, [Introducing Claude Opus 5.5](https://www.anthropic.com/claude-opus-5-5) | Eng (vendor-measured) | Headline benchmarks at max; FrontierCode and CursorBench at medium; grader-checked reports |
+| 65 | Artificial Analysis, Opus 5.5 model pages ([low](https://artificialanalysis.ai/models/claude-opus-5-5-low), [medium](https://artificialanalysis.ai/models/claude-opus-5-5-medium), [high](https://artificialanalysis.ai/models/claude-opus-5-5-high), [xhigh](https://artificialanalysis.ai/models/claude-opus-5-5-xhigh), [max](https://artificialanalysis.ai/models/claude-opus-5-5)) | Ind (independent) | Per-effort index, output tokens, cost per task, speed |
+| 66 | Artificial Analysis, [AA-Omniscience](https://artificialanalysis.ai/evaluations/omniscience) | Ind | Opus 5.5 max ranks #1 on the hallucination-penalizing knowledge index |
+| 67 | Zhao, Hooi & Ng, *Test-Time Scaling in Reasoning Models Is Not Effective for Knowledge-Intensive Tasks Yet*. [arXiv:2509.06861](https://arxiv.org/abs/2509.06861) · COLM 2026 | PR | Per-model hallucination vs. reasoning length; abstention mechanism; Claude Sonnet 4 shows no trend |
+| 68 | OpenAI, [o3 and o4-mini System Card](https://cdn.openai.com/pdf/2221c875-02dc-4789-800b-e7758f3722c1/o3-and-o4-mini-system-card.pdf) (Apr 2025), Table 4 | Doc | PersonQA and SimpleQA hallucination rates; "makes more claims" |
+| 69 | Yao et al., *Are Reasoning Models More Prone to Hallucination?* [arXiv:2505.23646](https://arxiv.org/abs/2505.23646) | Pre | Hallucination depends on the post-training pipeline |
+| 70 | Kalai, Nachum, Vempala & Zhang (OpenAI), *Why Language Models Hallucinate* (2025). [IAS abstract](https://www.ias.edu/node/310786) | Pre | Incentives to guess as the root cause |
+
 ## Cross-check notes
 
 Discrepancies and caveats found while verifying:
@@ -105,4 +119,7 @@ Discrepancies and caveats found while verifying:
 - **Length-Controlled AlpacaEval (#34):** commonly cited as COLM 2024, but that could not be confirmed from primary sources here, so it is marked as a preprint.
 - **Let Me Speak Freely (#35):** a single study. Results are directional.
 - **Chain of Draft (#12):** the headline "7.6% of tokens" is a best case. Its own zero-shot Claude 3.5 Sonnet result is a 25-point accuracy drop.
+- **Opus 5.5 CursorBench cost per task (#64):** third-party blogs cite about $3 (medium) and $4 (max) per task. These figures were not found in Anthropic's primary post and are marked unconfirmed in file 08. One blog's "$0.50–$1.35 per task" range for Artificial Analysis conflicts with Artificial Analysis's own pages ($0.55–$5.98) and is not used.
+- **FrontierCode (#64):** medium (54.6%) scores slightly above max (54.4%), as Anthropic reported it. That is within noise, and it is cited as "no measurable gain."
+- **Artificial Analysis per-effort Omniscience (#66):** only the max entry's values were visible, so per-effort hallucination rates for Opus 5.5 remain unknown.
 - **Transfer to Opus 5.5:** most academic results use open models (R1-distills, QwQ, Qwen) or older closed models. Only Anthropic's docs (#45–53) describe Opus 5.5 behavior directly. Treat academic magnitudes as directional for Claude.

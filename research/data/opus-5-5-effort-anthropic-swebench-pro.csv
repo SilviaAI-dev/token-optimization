@@ -1,0 +1,5 @@
+effort,solve_rate,cost_per_task_usd,runs,source
+low,0.874,0.11,2,https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence
+medium,0.928,0.21,2,https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence
+high,0.953,0.29,2,https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence
+xhigh,0.967,0.74,1,https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence

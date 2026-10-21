@@ -13,6 +13,7 @@ Research into cutting token use in large reasoning models (Claude Opus 5.5 is th
 | [05-risks-and-limits.md](05-risks-and-limits.md) | Where compression hurts quality, and what it costs in safety and monitorability |
 | [06-playbook.md](06-playbook.md) | Prioritized recommendations that map each of your goals to evidence-backed tactics, with prompt snippets |
 | [07-measurement.md](07-measurement.md) | How to measure whether an optimization actually worked |
+| [08-effort-cost-analysis.md](08-effort-cost-analysis.md) | Opus 5.5 cost, token, and code-quality data at every effort level, plus the evidence on effort and hallucination ([data](data/), [script](analysis/effort_cost.py)) |
 | [sources.md](sources.md) | Full bibliography with venue, peer-review status, and the discrepancies found while cross-checking |
 
 ## Bottom line
