@@ -75,3 +75,22 @@ These suit RAG and long-document pipelines. For instructions you write yourself,
 - Keep CLAUDE.md under about 200 lines. Move workflow-specific instructions into skills, which load on demand ([Claude Code costs](https://code.claude.com/docs/en/costs)).
 - Remove leftover aggressive language from older models. Opus 4.5 and later "may now overtrigger. The fix is to dial back any aggressive language."
 - Remove contradictions. OpenAI documents that a careful instruction-follower burns reasoning tokens reconciling them.
+
+## 7. Skill compression: less is more (SkillReducer)
+
+Gao et al., *SkillReducer: Optimizing LLM Agent Skills for Token Efficiency* (arXiv:2603.29919, 2026 preprint), studied skills written for Anthropic's skill protocol:
+
+| Finding | Number |
+|---|---|
+| Public skills surveyed | 55,315. Mean body 2,796 tokens; curated SkillHub skills 5,922 |
+| Skills with no routing description | 26.4% (44.1% missing or under 20 tokens) |
+| Body content by type | Core rules 38.5%, background 40.7%, examples 12.9%, templates 7.6% |
+| Compression achieved | Descriptions −48%, bodies −39%. On SkillsBench, body tokens fell from 359K to 84K (−75%) with all 87 tasks still passing |
+| Quality effect | Compressed skills scored **higher** than originals (0.742 vs 0.722 on 600 skills, p = 0.002, about +2.8%). With no skill at all the score was 0.684 |
+| Cross-model retention | 0.965 mean across five models from four families. 0.944 in an independent agent framework |
+
+**Method:** compress descriptions while preserving routing accuracy. Split bodies into core rules (always loaded) and supplementary content (examples, background, references) that loads only on demand. Check faithfulness and restore content when a test fails.
+
+**Main failure mode:** "example-as-specification." When an example implicitly defines required behavior, moving it out of the core body breaks the skill. True compression regressions affected 4.7% of skills. **Practical rule:** keep any example that *defines* behavior in the core body, and move only illustrative examples out.
+
+This is independent support for Anthropic's progressive-disclosure design and its context-engineering advice. Removing non-essential instruction text cut tokens and *raised* quality. Caveats: the results come from non-Claude models (GLM-5, DeepSeek-V3, Qwen3-max, GPT-OSS-120B, Qwen2.5-7B), and SkillsBench was at its ceiling (86 of 87 tasks passed with no skill at all).

@@ -129,6 +129,13 @@ Coding with a test-based verifier tolerates low effort best, because failures ca
 
 Combine with caching (3.3x cost difference) and the playbook in [06](06-playbook.md).
 
+## 7. Independent cross-check: token spend vs. success in agentic coding
+
+Bai et al. (arXiv:2604.22750, 2026 preprint) measured eight models in OpenHands on SWE-bench Verified, without varying effort. Their results point the same way as the effort data above:
+- **Accuracy rises from the cheapest run of a task to a moderately cheap one, then saturates or falls** at higher spend. That is the same inverted-U pattern as the effort curve.
+- Problems that consumed more input tokens had *lower* accuracy across models. On failures every model shared, Kimi-K2 spent about 2M more tokens than on successes, while GPT-5 spent under 0.5M more. Extra spend on a failing run is mostly wasted.
+- **Model choice is itself an efficiency lever.** GPT-5 and GPT-5.2 reached strong accuracy at low cost, while Claude Sonnet 4.5, Sonnet 4, and Qwen3-Coder ran in a higher-cost regime. Sonnet 4.5 used over 1.5M more tokens per task than GPT-5. These are older Claude models, and the paper did not test Opus 5.5 or Sonnet 5.5, so it does not change the Opus 5.5 recommendation above. It does mean Claude models should be benchmarked on cost per solved task, not just solve rate.
+
 ## Limitations
 
 - Anthropic's numbers are vendor-measured on an internal subset. Artificial Analysis is independent, but it publishes one run per configuration without confidence intervals on these pages.

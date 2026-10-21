@@ -55,6 +55,16 @@ This is what most people mean by "circular" reasoning. The model hops between ap
 - Tool definitions alone can consume about 55K tokens (five MCP servers, 58 tools) before the conversation starts ([advanced tool use](https://www.anthropic.com/engineering/advanced-tool-use)).
 - Raw intermediate results pass through the model. One 2-hour transcript copied between tools costs about 50K extra tokens ([code execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp)).
 - Bloat also costs accuracy, not just money (see [03](03-context-and-input-efficiency.md)). Chroma found focused ~300-token inputs beat full ~113K-token inputs for every model family tested.
+- Skills are often padded. Of 55,315 public agent skills, 26.4% have no routing description, and over 60% of skill-body content is background, examples, or templates rather than actionable rules (Gao et al., *SkillReducer*, 2026 preprint).
+
+### 6b. Agentic coding: input re-reads and repeated file actions dominate
+
+Bai et al. (*How Do AI Agents Spend Your Money?*, 2026 preprint) analyzed OpenHands trajectories from eight models on SWE-bench Verified, four runs per problem:
+- Agentic coding uses about **1000x** more tokens than code reasoning or code chat. **Input tokens drive the cost, even with caching.** For Sonnet 4.5, cache reads are the largest token *and* dollar category in every phase, despite output costing about 80x more per token.
+- Exploring the code and writing the fix make up about two-thirds of agent rounds (30.4% and 33.5%). Input-heavy rounds come from tool results such as file views and test output.
+- **Expensive runs are redundant runs.** Higher-cost runs show sharply more repeated views and edits of the same file. For Qwen3-Coder, Sonnet 4, and Kimi-K2, about 50% of file actions repeat on a file already touched.
+- Runs on the same task can differ by up to 30x in total tokens, and expert difficulty ratings barely predict cost (Kendall τ = 0.32).
+- Model choice matters: Sonnet 4.5 and Kimi-K2 averaged over 1.5M more tokens per task than GPT-5 on the same tasks, including tasks every model solved.
 
 ### 7. Contradictory or vague instructions
 

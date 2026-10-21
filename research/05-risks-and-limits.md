@@ -48,6 +48,8 @@ Token cuts that look free on an average benchmark can fail on the cases that mat
 - **Averages hide the tail:** report accuracy on the hardest decile separately. Compression losses cluster there (token-complexity threshold).
 - **Old model, new behavior:** results measured on Claude 3.5 Sonnet or R1-distills do not carry over to Opus 5.5 automatically. Anthropic repeatedly says to re-sweep effort per model.
 - **Cache artifacts:** a change that breaks the prompt cache can raise cost even when it cuts tokens. Measure dollars, not just token counts.
+- **Run-to-run variance is large:** on SWE-bench Verified, token use for the same task varied by up to 30x between runs (Bai et al., 2026). Compare distributions over multiple runs, not single runs.
+- **Don't ask the model to estimate its own cost:** models' predictions of their own token use correlated with reality at r ≤ 0.39 and systematically *underestimated* it. For some models the prediction itself cost more than 2x the task (Bai et al., 2026). Size budgets from measured usage, as Anthropic's task-budget docs advise (p99 of real runs).
 
 ## 7. Things that are *not* safe to cut
 

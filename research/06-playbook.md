@@ -73,6 +73,8 @@ Notes on the block:
 4. **Plan-then-execute** where steps are independent (ReWOO-style batching of tool calls, parallel tool calls). Keep interleaved reasoning where later steps depend on earlier results.
 5. **Filter at the source.** Hooks or code that grep logs, page results, or return only the needed rows before the model sees them.
 6. **Hard caps:** subagent depth and concurrency limits, `max_budget_usd`, `max_tokens`, and a continuation limit of 2–3 automatic "continue" nudges.
+7. **Watch for repeated file actions.** Repeated views and edits of the same file are the clearest marker of expensive, low-yield coding runs (Bai et al., 2026). Log them and alert on them. Consider a harness rule or prompt line such as *(synthesized)* "Keep notes on files you have already read; re-read a file only after it changes."
+8. **Trim skills with progressive disclosure.** Keep the description short and routing-accurate. Keep core rules and behavior-defining examples in the skill body. Move background, illustrative examples, and templates into on-demand reference files. SkillReducer cut skill bodies 39% (75% on SkillsBench) and *raised* task scores about 2.8% (2026 preprint).
 
 ## Tier 5: if you control sampling (API harness)
 

@@ -104,6 +104,13 @@ Accessed 2026-10-21.
 | 69 | Yao et al., *Are Reasoning Models More Prone to Hallucination?* [arXiv:2505.23646](https://arxiv.org/abs/2505.23646) | Pre | Hallucination depends on the post-training pipeline |
 | 70 | Kalai, Nachum, Vempala & Zhang (OpenAI), *Why Language Models Hallucinate* (2025). [IAS abstract](https://www.ias.edu/node/310786) | Pre | Incentives to guess as the root cause |
 
+## Agentic token consumption and skills
+
+| # | Source | Status | Used for |
+|---|---|---|---|
+| 71 | Bai, Huang, Wang, Sun, Mihalcea, Brynjolfsson, Pentland & Pei, *How Do AI Agents Spend Your Money? Analyzing and Predicting Token Consumption in Agentic Coding Tasks*. [arXiv:2604.22750v3](https://arxiv.org/abs/2604.22750v3) (Oct 2026) | Pre | Input and cache-read dominance; repeated file actions; non-monotonic accuracy vs. cost; 30x run variance; poor self-prediction of cost; per-model token gaps (files 01, 05, 06, 08) |
+| 72 | Gao, Li, Yuanyuanyuan, Ji, Ma & Wang, *SkillReducer: Optimizing LLM Agent Skills for Token Efficiency*. [arXiv:2603.29919v1](https://arxiv.org/abs/2603.29919v1) (Mar 2026) | Pre | Skill bloat statistics; 39–75% compression with a quality gain; example-as-specification failure mode (files 01, 03, 06) |
+
 ## Cross-check notes
 
 Discrepancies and caveats found while verifying:
@@ -122,4 +129,6 @@ Discrepancies and caveats found while verifying:
 - **Opus 5.5 CursorBench cost per task (#64):** third-party blogs cite about $3 (medium) and $4 (max) per task. These figures were not found in Anthropic's primary post and are marked unconfirmed in file 08. One blog's "$0.50–$1.35 per task" range for Artificial Analysis conflicts with Artificial Analysis's own pages ($0.55–$5.98) and is not used.
 - **FrontierCode (#64):** medium (54.6%) scores slightly above max (54.4%), as Anthropic reported it. That is within noise, and it is cited as "no measurable gain."
 - **Artificial Analysis per-effort Omniscience (#66):** only the max entry's values were visible, so per-effort hallucination rates for Opus 5.5 remain unknown.
+- **Bai et al. (#71):** the abstract says runs on the same task differ by "up to 30x" in tokens, while the Figure 2(b) caption says the most expensive run averages about 2x the cheapest per model. The two figures describe the extreme and the typical case and are not reconciled in the paper. Agentic-vs-chat multipliers appear as "1000x" in the abstract and as 3500x and 1200x in the text.
+- **SkillReducer (#72):** the SkillsBench token figures cover 84 of 87 tasks, with three unexplained exclusions. SkillsBench was at ceiling (86 of 87 passed with no skill), so the +2.8% gain comes from the 600-skill Gate 2 evaluation, not SkillsBench. The arXiv page also lists a v2 (Jun 2026); this research cites v1 as requested.
 - **Transfer to Opus 5.5:** most academic results use open models (R1-distills, QwQ, Qwen) or older closed models. Only Anthropic's docs (#45–53) describe Opus 5.5 behavior directly. Treat academic magnitudes as directional for Claude.
